@@ -36,9 +36,10 @@ export class EstudiantesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getEstudiantes();
     });
+    this.getEstudiantes();
   }
   actualizarEstudiante( estudiante: any){
-    alert(estudiante.idEstudiantes);
+    
     localStorage.setItem("usuario",JSON.stringify(estudiante));
     const dialogRef = this.matDialog.open(SetestudianteComponent, {
       width: '580px',
@@ -49,6 +50,7 @@ export class EstudiantesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getEstudiantes();
     });
+    this.getEstudiantes();
   }
   openConfirmationDialog(estudiante: IEstudiantes): void {
     const dialogRef = this.matDialog.open(ConfirmationComponent, {

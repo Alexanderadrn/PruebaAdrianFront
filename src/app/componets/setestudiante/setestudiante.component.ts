@@ -78,7 +78,7 @@ export class SetestudianteComponent implements OnInit {
             if (this.estudiantes.idEstudiantes == 0) {
         this.estudianteService.setEstudiantes(this.estudiantes).subscribe(resp => {
           if (resp) {
-            alert(resp)
+            
             console.log(resp)
           } else {
             alert("No se pudo registrar")
@@ -96,6 +96,7 @@ export class SetestudianteComponent implements OnInit {
         });
       }
       this.matdialog.closeAll();
+      
     }
   }
 

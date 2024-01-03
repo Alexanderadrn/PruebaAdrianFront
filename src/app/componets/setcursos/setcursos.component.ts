@@ -10,13 +10,13 @@ import { CursosService } from 'src/app/services/cursos.service';
 })
 export class SetcursosComponent implements OnInit {
 
-  titulo: string ="Registrar"
+  titulo: string = "Registrar"
 
-  cursos: ICursos={
-    idCursos:0,
-    nombreCursos:"",
-    
-    
+  cursos: ICursos = {
+    idCursos: 0,
+    nombreCursos: "",
+
+
   }
   expresiones = {
     texto: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
@@ -25,54 +25,53 @@ export class SetcursosComponent implements OnInit {
   }
   constructor(
     private cursosService: CursosService,
-    private matdialog:MatDialog
+    private matdialog: MatDialog
   ) { }
   ngOnDestroy(): void {
     localStorage.removeItem("usuario")
   }
   ngOnInit(): void {
     this.obtenerDatos();
+  }
+  obtenerDatos() {
+    if (localStorage.getItem("usuario")) {
+      var datos = localStorage.getItem("usuario")
+      this.cursos = JSON.parse(datos!)
+      this.titulo = "Actualizar"
     }
-    obtenerDatos() {
-      if (localStorage.getItem("usuario")) {
-        var datos = localStorage.getItem("usuario")
-        this.cursos = JSON.parse(datos!)
-        this.titulo = "Actualizar"
-      }
+  }
+  onKeyPressTexto(event: KeyboardEvent) {
+    const input = event.key;
+    const regex = /^[a-z A-Z]+$/;
+    if (!regex.test(input)) {
+      event.preventDefault();
     }
-    onKeyPressTexto(event: KeyboardEvent) {
-      const input = event.key;
-      const regex = /^[a-z A-Z]+$/;
-      if (!regex.test(input)) {
-        event.preventDefault();
-      }
+  }
+  onKeyPressNumero(event: KeyboardEvent) {
+    const input = event.key;
+    const regex = /^[0-9]+$/;
+    if (!regex.test(input)) {
+      event.preventDefault();
     }
-    onKeyPressNumero(event: KeyboardEvent) {
-      const input = event.key;
-      const regex = /^[0-9]+$/;
-      if (!regex.test(input)) {
-        event.preventDefault();
-      }
+  }
+
+  validarDatos() {
+    if (this.expresiones.texto.test(this.cursos.nombreCursos)
+
+    ) {
+
+      return true;
+    } else {
+      alert("Los datos son incorrectos")
+      return false;
     }
-    
-    validarDatos() {
-      if (this.expresiones.texto.test(this.cursos.nombreCursos)
-       
-      ) {
-  
-        return true;
-      } else {
-        alert("Los datos son incorrectos")
-        return false;
-      }
-    } 
-  
-    setCursos() {
-      //if (this.validarDatos()) {
-            if (this.cursos.idCursos == 0) {
+  }
+
+  setCursos() {
+    if (this.validarDatos()) {
+      if (this.cursos.idCursos == 0) {
         this.cursosService.setCursos(this.cursos).subscribe(resp => {
           if (resp) {
-            alert(resp)
             console.log(resp)
           } else {
             alert("No se pudo registrar")
@@ -91,9 +90,10 @@ export class SetcursosComponent implements OnInit {
       }
       this.matdialog.closeAll();
     }
+  }
 
-    dismissModal() {
-      this.matdialog.closeAll();
-    }
+  dismissModal() {
+    this.matdialog.closeAll();
+  }
 
 }

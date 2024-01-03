@@ -39,7 +39,6 @@ export class CursosComponent implements OnInit {
     });
   }
   actualizarCursos( curso: any){
-    alert(curso.idCursos);
     localStorage.setItem("usuario",JSON.stringify(curso));
     const dialogRef = this.matDialog.open(SetcursosComponent, {
       width: '580px',
