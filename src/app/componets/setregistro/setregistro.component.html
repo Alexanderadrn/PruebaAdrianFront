@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="modal-header">
+      <h3 class="modal-title" id="exampleModalLabel">Compra</h3>
+    </div>
+    <label for="idPersonas">Seleccione al estudiante:</label>
+    <mat-select name="idEstudiantes" id="idEstudiantes" class="idEstudiantes" [(ngModel)]="estudianteSelected.idEstudiantes"
+      placeholder="Seleccione un estudiante" (selectionChange)="getRegistro()">
+      <mat-option *ngFor="let item of estudiantes" [value]="item.idEstudiantes">
+        {{item.nombreEstudiante}} {{item.apellidoEstudiante}}
+      </mat-option>
+    </mat-select>
+    <label for="idProductos">Seleccione el Curso:</label>
+    <mat-select name="idCursos" id="idCursos" class="idCursos" [(ngModel)]="cursosSelected.idCursos"
+      placeholder="Seleccione un Curso">
+      <mat-option *ngFor="let item of cursos" [value]="item.idCursos">
+        {{item.nombreCursos}}
+      </mat-option>
+    </mat-select>
+    <button mat-raised-button (click)="setRegistro()" style="margin-right: 10px;">Registrar Compra</button>
+  
+    <table class="table table-hover">
+        <thead>
+          <tr style="text-align: center;">
+            <th scope="col">Nombre Estudiante</th>
+            <th scope="col">Apellido Estudiante</th>
+            <th scope="col">Nombre Curso</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of registro" style="text-align: center;">
+            <td>{{item.nombreEstudiante}}</td>
+            <td>{{item.apellidoEstudiante}}</td>
+            <td>{{item.nombreCurso}}</td>
+            
+            
+          </tr>
+          
+        </tbody>
+      </table>
